@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 import psutil
-from Classes.gpu_handlers import GPUS
+from gpu_handlers import GPUS
 
 @dataclass
 class RAM_INFO:
@@ -26,3 +26,9 @@ class SYS_SPECS:
     cpu: CPU_INFO = field(default_factory=CPU_INFO)
     ram: RAM_INFO = field(default_factory=RAM_INFO)
     gpus: GPUS = field(default_factory=GPUS)
+    
+if __name__ == "__main__":
+    sys = SYS_SPECS()
+    print(sys.ram)
+    print(sys.cpu)
+    print(sys.gpus)
