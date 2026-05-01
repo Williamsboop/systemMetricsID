@@ -1,3 +1,4 @@
+from debugger import Logger
 from dataclasses import dataclass, field
 import psutil
 import subprocess
@@ -14,6 +15,7 @@ class RAM_INFO:
             self.total = int(_ram.total / (1024**3))
             self.free = int(_ram.available / (1024**3))
         
+        @Logger
         def avg(data:list[int]) -> int|None:
             if not data:
                 return None

@@ -1,3 +1,4 @@
+from debugger import Logger
 from dataclasses import dataclass, field
 from GPUtil import getGPUs as get_gpus
 from .amd import get_dxgi_gpu_info
@@ -7,8 +8,9 @@ from typing import Any
 class GPU_BASE:
     brand:str = field(init=False, default="")
     info:dict =  field(init=False, default_factory=dict)
-    
-    def hasGPU(self) -> bool:
+
+    @Logger    
+    def has_gpu(self) -> bool:
         return len(self.info) > 0
 
 @dataclass
@@ -21,6 +23,7 @@ class NVIDIA_GPUS(GPU_BASE):
                                   "totalMem": int(gpu.memoryTotal / 1024),
                                   "freeMem": int(gpu.memoryFree / 1024)}
     
+    @Logger
     def refreshMemory(self) -> None:
         for gpu in get_gpus():
             if gpu.id in self.info:
@@ -37,7 +40,7 @@ class GPUS:
     
     def __post_init__(self) -> None:
         nvidia = NVIDIA_GPUS()
-        if nvidia.hasGPU():
+        if nvidia.has_gpu():
             self.root = nvidia
             self.root.brand = "NVIDIA"
             return

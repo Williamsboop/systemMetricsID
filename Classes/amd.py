@@ -1,3 +1,4 @@
+from debugger import Logger
 import ctypes
 
 # Constants
@@ -42,20 +43,24 @@ IID_IDXGIAdapter3 = (ctypes.c_byte * 16)(
     0xA7, 0x98, 0x80, 0x53, 0xCE, 0x3E, 0x93, 0xFD
 )
 
+@Logger
 def _vtable_fn(obj, slot, restype, *argtypes):
     vtable = ctypes.cast(obj, ctypes.POINTER(ctypes.c_void_p))
     fn_ptr = ctypes.cast(vtable[0], ctypes.POINTER(ctypes.c_void_p))[slot]
     return ctypes.CFUNCTYPE(restype, ctypes.c_void_p, *argtypes)(fn_ptr)
 
+@Logger
 def _release(obj):
     if obj:
         _vtable_fn(obj, 2, ctypes.c_ulong)(obj)
 
+@Logger
 def _query_interface(obj, iid, out):
     return _vtable_fn(
         obj, 0, ctypes.c_long, ctypes.POINTER(ctypes.c_byte * 16), ctypes.POINTER(ctypes.c_void_p)
     )(obj, iid, out)
 
+@Logger
 def get_dxgi_gpu_info() -> dict:
     ctypes.windll.ole32.CoInitialize(None)
     factory = ctypes.c_void_p()
