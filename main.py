@@ -1,7 +1,8 @@
 from debugger import Logger
 from Classes.sys_info import SYS_SPECS
 
-Logger.debug_active = True
+Logger.active = False
+Logger.lvl = 1
 
 @Logger
 def main() -> int:

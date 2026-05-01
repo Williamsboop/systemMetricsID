@@ -29,10 +29,10 @@ class RAM_INFO:
             self.approx_speed = None            
      
     def __str__(self) -> str:
-        title = "\n|                    RAM INFO                    |\n".replace(" ", "-")
-        l1 = F"\tThis PC has {self.total} GBs of RAM.\n"
-        l2 = F"\twith {self.free} GBs free.\n"
-        l3 = F"\tThe approximate speed is ~{self.approx_speed} Mhz.\n"
+        title = "\n|                    RAM INFO                    |\n\n".replace(" ", "-")
+        l1 = F"\t• This PC has {self.total} GBs of RAM.\n"
+        l2 = F"\t  with {self.free} GBs free.\n"
+        l3 = F"\t• The approximate speed is ~{self.approx_speed} Mhz.\n"
         
         if self.approx_speed:
             return title + l1 + l2 + l3
@@ -50,10 +50,10 @@ class CPU_INFO:
             self.base_speed  = _freq.max / 1000
             
     def __str__(self) -> str:
-        title = "\n|                    CPU INFO                    |\n".replace(" ", "-")
-        l1 = F"\tThe CPU in this PC has {self.cores} core(s)\n"
-        l2 = F"\tand {self.threads} thread(s).\n"
-        l3 = F"\tIt has a base speed of ~{self.base_speed:.1f} Ghz.\n"
+        title = "\n|                    CPU INFO                    |\n\n".replace(" ", "-")
+        l1 = F"\t• The CPU in this PC has {self.cores} core(s)\n"
+        l2 = F"\t  and {self.threads} thread(s).\n"
+        l3 = F"\t• It has a base speed of ~{self.base_speed:.1f} Ghz.\n"
         return title + l1 + l2 + l3
                   
 @dataclass
