@@ -63,7 +63,6 @@ class SYS_SPECS:
     gpus: GPUS = field(default_factory=GPUS)
     
     def __str__(self) -> str:
-        
         l1 = str(self.ram)
         l2 = str(self.cpu)
         l3 = str(self.gpus)

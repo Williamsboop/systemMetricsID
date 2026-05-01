@@ -8,6 +8,7 @@ def main() -> int:
     
     local_sys = SYS_SPECS()
     print(local_sys)
+    local_sys.gpus.root.refreshMemory()
     
     return 0
 

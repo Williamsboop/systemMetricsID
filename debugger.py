@@ -20,7 +20,11 @@ class Logger:
     
     def __call__(self, *args:Any, **kwargs:Any) -> Any:
         if self.debug_active and self.debug_message:
-            print(self.debug_message)
+            if args:
+                debug:str = F"{self.debug_message}\n\tparams >>> {args}"
+            else:
+                debug = self.debug_message
+            print(debug)
         else:
             pass
         return self.func(*args, **kwargs)

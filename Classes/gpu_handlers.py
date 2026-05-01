@@ -9,7 +9,7 @@ class GPU_BASE:
     brand:str = field(init=False, default="")
     info:dict =  field(init=False, default_factory=dict)
 
-    @Logger    
+    @Logger 
     def has_gpu(self) -> bool:
         return len(self.info) > 0
 
@@ -33,6 +33,12 @@ class NVIDIA_GPUS(GPU_BASE):
 class AMD_GPUS(GPU_BASE):
     def __post_init__(self) -> None:
         self.info = get_dxgi_gpu_info()
+        
+    def refreshMemory(self) -> None:
+        snap = get_dxgi_gpu_info()
+        for id, data in snap.items():
+            if id in self.info:
+                self.info[id]["freeMem"] = data["freeMem"]
 
 @dataclass
 class GPUS:
