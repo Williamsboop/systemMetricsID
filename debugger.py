@@ -10,6 +10,7 @@ class Logger:
     func: Callable = field(repr=False)
 
     def __post_init__(self) -> None:
+        functools.update_wrapper(self, self.func)
         self._file:     str = inspect.getfile(self.func)
         self._instance: Any = None
         self._owner:    Any = None
@@ -46,7 +47,7 @@ class Logger:
         if self.active and (message := self._debug_message):
             display_args = tuple(a for a in args if a is not self._instance)
             debug = f"{message}\n\t| PARAMS -> {display_args}" if display_args else message
-            debug += "\n\t¯"
+            debug += '\n\t‾'
             print(debug)
 
         return self.func(*args, **kwargs)
