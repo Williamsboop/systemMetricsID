@@ -45,7 +45,7 @@ class GPUS:
         self.root.brand = "AMD"
         
     def __str__(self) -> str:
-        title = "\n|                    GPU INFO                    |\n"
+        title = "\n|                    GPU INFO                    |\n".replace(" ", "-")
         l1 = F"\tThis PC has {len(self.root.info)} discrete card(s).\n"
         l2 = F"\tThe brand of the main card is {self.root.brand}.\n"
         l3 = F"\tThe total memory available on\n\tthis card is {self.root.info[0]['totalMem']}GB.\n"
