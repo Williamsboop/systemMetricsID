@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import psutil
 import subprocess
-from gpu_handlers import GPUS
+from .gpu_handlers import GPUS
 
 @dataclass
 class RAM_INFO:
@@ -16,9 +16,9 @@ class RAM_INFO:
         
         def avg(data:list[int]) -> int|None:
             if not data:
-                return int(sum(data) / len(data))
-            else:
                 return None
+            else:
+                return int(sum(data) / len(data))
         
         _speed_data = subprocess.check_output("wmic memorychip get speed", shell=True).decode()
         if (avg_speed := avg([int(s.strip()) for s in _speed_data.split('\n') if s.strip() and s.strip().isdigit()])) != None:
@@ -29,8 +29,9 @@ class RAM_INFO:
     def __str__(self) -> str:
         title = "\n|                    RAM INFO                    |\n".replace(" ", "-")
         l1 = F"\tThis PC has {self.total} GBs of RAM.\n"
-        l2 = F"\twith {self.free} GBs of free for use.\n"
+        l2 = F"\twith {self.free} GBs free.\n"
         l3 = F"\tThe approximate speed is ~{self.approx_speed} Mhz.\n"
+        
         if self.approx_speed:
             return title + l1 + l2 + l3
         else:
@@ -65,7 +66,3 @@ class SYS_SPECS:
         l2 = str(self.cpu)
         l3 = str(self.gpus)
         return l1 + l2 + l3
-    
-if __name__ == "__main__":
-    sys = SYS_SPECS()
-    print(sys)

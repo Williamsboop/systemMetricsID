@@ -116,6 +116,3 @@ def get_dxgi_gpu_info() -> dict:
     _release(factory)
     ctypes.windll.ole32.CoUninitialize()
     return gpus
-
-# if __name__ == "__main__":
-#     print(get_dxgi_gpu_info())

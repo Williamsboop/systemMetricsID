@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from GPUtil import getGPUs as get_gpus
-from amd import get_dxgi_gpu_info
+from .amd import get_dxgi_gpu_info
 from typing import Any
 
 @dataclass
@@ -50,7 +50,3 @@ class GPUS:
         l2 = F"\tThe brand of the main card is {self.root.brand}.\n"
         l3 = F"\tThe total memory available on\n\tthis card is {self.root.info[0]['totalMem']}GB.\n"
         return title + l1 + l2 + l3
-
-if __name__ == "__main__":         
-    gpus = GPUS()       
-    print(gpus)
